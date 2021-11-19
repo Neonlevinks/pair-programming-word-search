@@ -1,31 +1,28 @@
-const wordSearch = (letters, word) => { 
-    const horizontalJoin = letters.map(ls => ls.join(''))
-    let isTrue = false;
-    let verticalLetters = [];
-    for (l of horizontalJoin) {
-        if (l.includes(word)) {
-          isTrue = true;
-        };
-    };
-    
-    for (let i = 0; i < letters.length; i++){
-        verticalLetters.push([])
-        for (let j = 0; j < letters.length; j++) {
-            verticalLetters[i].push(letters[j][i]);   
-        };
+const wordSearch = (letters, word) => {
+    if (letters === [] || !word) return false;
+  
+    // searching horizontally
+    const horizontalJoin = letters.map(ls => ls.join(''));
+    for (let l of horizontalJoin) {
+      if (l.includes(word)) return true;
     }
-
- 
-    const verticalJoin = verticalLetters.map(ls => ls.join(''))
-    for (l of verticalJoin) {
-        if (l.includes(word)) {
-          isTrue = true;
-        }
+  
+    // 2D array
+    let verticalArr = [];
+    for (let i = 0; i < letters.length; i++) {
+      verticalArr[i] = [];
+      for (let j = 0; j < letters[i].length; j++) {
+        verticalArr[i].push(letters[j][i]);
+      }
     }
-    
-
-
-    return isTrue
-}
-
-module.exports = wordSearch
+  
+    // seaching vertically
+    const verticalJoin = verticalArr.map(ls => ls.join(''));
+    for (let l of verticalJoin) {
+      if (l.includes(word)) return true;
+    }
+  
+    return false;
+  };
+  
+  module.exports = wordSearch;
